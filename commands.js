@@ -1,10 +1,10 @@
 const fs = require("fs");
 const crypto = require("crypto");
 //Read settings
-const config = JSON.parse(fs.readFileSync("./config/server-settings.json"));
-const jokes = JSON.parse(fs.readFileSync("./config/jokes.json"));
-const facts = JSON.parse(fs.readFileSync("./config/facts.json"));
-const copypastas = JSON.parse(fs.readFileSync("./config/copypastas.json"));
+const config = JSON.parse(fs.readSync("./config/server-settings.json"));
+const jokes = JSON.parse(fs.readSync("./config/jokes.json"));
+const facts = JSON.parse(fs.readSync("./config/facts.json"));
+const copypastas = JSON.parse(fs.readSync("./config/copypastas.json"));
 module.exports.ccblacklist = [];
 
 function ipToInt(ip) {
@@ -34,7 +34,7 @@ function ipToInt(ip) {
 //and hope it works
 
 //NOTE: List parsing must be compatible with text editors that add \r and ones that don't
-let ccc = fs.readFileSync("./config/colors.txt").toString().replace(/\r/g, "");
+let ccc = fs.readSync("./config/colors.txt").toString().replace(/\r/g, "");
 if (ccc.endsWith("\n")) ccc = ccc.substring(0, ccc.length - 1);
 const colors = ccc.split("\n");
 let klog = [];
@@ -94,7 +94,8 @@ module.exports.vpnLocked = false;
 const whitelist = [
         "https://i.ibb.co",
         "https://i.imgur.com",
-        "https://file.garden",
+        "https://.garden",
+        "https://upload.bonziworld.kr",
 ];
 module.exports.whitelist = whitelist;
 setInterval(() => {
@@ -963,7 +964,7 @@ module.exports.commands = {
                                 toban.socket.disconnect();
                         }
                 });
-                fs.appendFileSync(
+                fs.appendSync(
                         "./config/bans.txt",
                         param + "/" + reason + "\n",
                 );
